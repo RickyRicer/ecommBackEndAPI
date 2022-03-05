@@ -26,7 +26,7 @@ router.get('/:id', async (req, res) => {
     res.json(category);
   } catch (e) {
     res.json(e);
-  }
+  };
 });
 
 router.post('/', async (req, res) => {
@@ -38,7 +38,7 @@ router.post('/', async (req, res) => {
     res.json(category_name);
   } catch (e) {
     res.json(e);
-  }
+  };
 });
 
 router.put('/:id', async (req, res) => {
@@ -51,11 +51,11 @@ router.put('/:id', async (req, res) => {
     });
     if (!categoryId[0]) {
       res.status(404).json({ message: 'No category with this id!' });
-    }
+    };
     res.json(categoryId);
   } catch (e) {
     res.json(e);
-  }
+  };
 });
 
 router.delete('/:id', async (req, res) => {
@@ -65,12 +65,12 @@ router.delete('/:id', async (req, res) => {
     await Category.destroy({
       where: {
         id: req.params.categoryId,
-      }
+      },
     });
     res.json(deletedCategory);
   } catch (e) {
     res.json(e);
-  }
+  };
 });
 
 module.exports = router;
