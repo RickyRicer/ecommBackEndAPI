@@ -14,9 +14,15 @@ router.get('/', async (req, res) => {
   }
 });
 
-router.get('/:id', (req, res) => {
+router.get('/:id', async (req, res) => {
   // find a single tag by its `id`
   // be sure to include its associated Product data
+  try {
+    const tag = await Tag.findByPk(req.params.id);
+    res.json(tag);
+  } catch (e) {
+    res.status(500).json(e);
+  }
 });
 
 router.post('/', (req, res) => {
