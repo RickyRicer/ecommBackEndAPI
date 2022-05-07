@@ -33,14 +33,20 @@ router.get('/:id', async (req, res) => {
 
 // create new product
 router.post('/', (req, res) => {
-  /* req.body should look like this...
+  // Create a new product
+  const { product_name, price, stock, tagIds } = req.body;
+  // Validate that the required info to create a new product was passed
+  if(!product_name || !price || !stock || !tagIds ) {
+    return res.status(400).json({
+      error: `You must provide the product_name, price, stock, and tagIds in the following format:
     {
-      product_name: "Basketball",
-      price: 200.00,
-      stock: 3,
-      tagIds: [1, 2, 3, 4]
-    }
-  */
+      product_name: "Fancy New Product",
+      price: 99.99,
+      stock: 10,
+      tagIds: [1, 2, 3]
+    }`
+    });
+  }
   Product.create(req.body)
     .then((product) => {
       // if there's product tags, we need to create pairings to bulk create in the ProductTag model
